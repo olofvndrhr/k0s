@@ -3050,8 +3050,8 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 <p>Port 7946 (TCP &amp; UDP) must be allowed between the nodes. In addition, before installing MetalLB, make sure there is no other software running on port 7946 on the nodes, such as docker daemon.</p>
 <h3 id="install-metallb">Install MetalLB<a class="headerlink" href="#install-metallb" title="Permanent link">#</a></h3>
 <ol>
-<li>Install MetalLB using the official Helm chart and k0s Helm <a href="../../helm-charts/">extension manager</a>:</li>
-</ol>
+<li>
+<p>Install MetalLB using the official Helm chart and k0s Helm <a href="../../helm-charts/">extension manager</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k0s.k0sproject.io/v1beta1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterConfig</span>
 
@@ -3071,10 +3071,12 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 <span class="w">          </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.15.3&quot;</span>
 <span class="w">          </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metallb-system</span>
 </code></pre></div>
+</li>
+</ol>
 <p>Other installation methods are available in the <a href="https://metallb.org/installation/">MetalLB's official documentation</a>.</p>
 <ol>
-<li>Create ConfigMap for MetalLB</li>
-</ol>
+<li>
+<p>Create ConfigMap for MetalLB</p>
 <p>Next you need to create ConfigMap, which includes an IP address range for the load balancer. The pool of IPs must be dedicated to MetalLB's use. You can't reuse for example the Kubernetes node IPs or IPs controlled by other services. You can, however, use private IP addresses, for example 192.168.1.180-192.168.1.199, but then you need to take care of the routing from the external network if you need external access. In this example, we don't need it.</p>
 <p>Create a YAML file accordingly, and deploy it: <code>kubectl apply -f metallb-l2-pool.yaml</code></p>
 <div class="highlight"><pre><span></span><code><span class="nn">---</span>
@@ -3098,9 +3100,9 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example</span>
 <span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metallb-system</span>
 </code></pre></div>
-<ol>
-<li>Deploy an example application (web server) with a load balancer</li>
-</ol>
+</li>
+<li>
+<p>Deploy an example application (web server) with a load balancer</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespace</span>
 
@@ -3145,19 +3147,21 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 <span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LoadBalancer</span>
 </code></pre></div>
-<ol>
-<li>Check your LoadBalancer</li>
-</ol>
+</li>
+<li>
+<p>Check your LoadBalancer</p>
 <p>Run the following command to see your LoadBalancer with the external-ip and port.</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>service<span class="w"> </span>-n<span class="w"> </span>web
 </code></pre></div>
-<ol>
-<li>Access your example application</li>
-</ol>
+</li>
+<li>
+<p>Access your example application</p>
 <p>If you used private IP addresses for MetalLB in the ConfigMap (in step 2), you should run the following command from the local network. Use the IP address from the previous step.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>&lt;EXTERNAL-IP&gt;
 </code></pre></div>
 <p>If you are successful, you should see <code>&lt;html&gt;&lt;body&gt;&lt;h1&gt;It works!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;</code>.</p>
+</li>
+</ol>
 <h2 id="additional-information">Additional information<a class="headerlink" href="#additional-information" title="Permanent link">#</a></h2>
 <p>For more information about MetalLB installation, take a look at <a href="https://metallb.universe.tf/installation/">the official MetalLB documentation</a>.</p>
 <h2 id="alternative-examples">Alternative examples<a class="headerlink" href="#alternative-examples" title="Permanent link">#</a></h2>

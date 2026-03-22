@@ -3234,8 +3234,8 @@ service/traefik-1607085579<span class="w">   </span>LoadBalancer<span class="w">
 <h2 id="deploy-and-access-the-traefik-dashboard">Deploy and access the Traefik Dashboard<a class="headerlink" href="#deploy-and-access-the-traefik-dashboard" title="Permanent link">#</a></h2>
 <p>With an available and addressable load balancer present on your cluster, now you can quickly deploy the Traefik dashboard and access it from anywhere on your LAN (assuming that MetalLB is configured with an addressable range).</p>
 <ol>
-<li>Create the Traefik Dashboard <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/">IngressRoute</a> in a YAML file:</li>
-</ol>
+<li>
+<p>Create the Traefik Dashboard <a href="https://doc.traefik.io/traefik/reference/routing-configuration/kubernetes/crd/http/ingressroute/">IngressRoute</a> in a YAML file:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">traefik.io/v1alpha1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IngressRoute</span>
 
@@ -3254,9 +3254,9 @@ service/traefik-1607085579<span class="w">   </span>LoadBalancer<span class="w">
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api@internal</span>
 <span class="w">          </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TraefikService</span>
 </code></pre></div>
-<ol>
-<li>Deploy the resource:</li>
-</ol>
+</li>
+<li>
+<p>Deploy the resource:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>traefik-dashboard.yaml
 </code></pre></div>
 <p><em>Output</em>:</p>
@@ -3264,9 +3264,9 @@ service/traefik-1607085579<span class="w">   </span>LoadBalancer<span class="w">
 </code></pre></div>
 <p>At this point you should be able to access the dashboard using the <code>EXTERNAL-IP</code> that you noted above by visiting <code>http://192.168.0.5/dashboard/</code> in your browser:</p>
 <p><img alt="Traefik Dashboard" src="../../img/traefik-dashboard.png" /></p>
-<ol>
-<li>Create a simple <code>whoami</code> Deployment, Service, and <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Ingress</a> manifest:</li>
-</ol>
+</li>
+<li>
+<p>Create a simple <code>whoami</code> Deployment, Service, and <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">Ingress</a> manifest:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -3313,9 +3313,9 @@ service/traefik-1607085579<span class="w">   </span>LoadBalancer<span class="w">
 <span class="w">                </span><span class="nt">port</span><span class="p">:</span>
 <span class="w">                  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
 </code></pre></div>
-<ol>
-<li>Apply the manifests:</li>
-</ol>
+</li>
+<li>
+<p>Apply the manifests:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>whoami.yaml
 </code></pre></div>
 <p><em>Output</em>:</p>
@@ -3323,9 +3323,9 @@ service/traefik-1607085579<span class="w">   </span>LoadBalancer<span class="w">
 service/whoami-service<span class="w"> </span>created
 ingress.networking.k8s.io/whoami-ingress<span class="w"> </span>created
 </code></pre></div>
-<ol>
-<li>Test the ingress and service:</li>
-</ol>
+</li>
+<li>
+<p>Test the ingress and service:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://192.168.0.5/whoami
 </code></pre></div>
 <p><em>Output</em>:</p>
@@ -3347,6 +3347,8 @@ X-Forwarded-Proto:<span class="w"> </span>http
 X-Forwarded-Server:<span class="w"> </span>traefik-1607085579-77bbc57699-b2f2t
 X-Real-Ip:<span class="w"> </span><span class="m">192</span>.168.0.82
 </code></pre></div>
+</li>
+</ol>
 <h2 id="further-details">Further details<a class="headerlink" href="#further-details" title="Permanent link">#</a></h2>
 <p>With the Traefik Ingress Controller it is possible to use third party tools,
 such as <a href="https://ngrok.com/">ngrok</a>, to go further and expose your load balancer to the world. In
