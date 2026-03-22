@@ -3071,10 +3071,8 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 <span class="w">          </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.15.3&quot;</span>
 <span class="w">          </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metallb-system</span>
 </code></pre></div>
-</li>
-</ol>
 <p>Other installation methods are available in the <a href="https://metallb.org/installation/">MetalLB's official documentation</a>.</p>
-<ol>
+</li>
 <li>
 <p>Create ConfigMap for MetalLB</p>
 <p>Next you need to create ConfigMap, which includes an IP address range for the load balancer. The pool of IPs must be dedicated to MetalLB's use. You can't reuse for example the Kubernetes node IPs or IPs controlled by other services. You can, however, use private IP addresses, for example 192.168.1.180-192.168.1.199, but then you need to take care of the routing from the external network if you need external access. In this example, we don't need it.</p>
